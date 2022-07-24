@@ -55,14 +55,14 @@ module cordic(clk, angle, sine, cosine);
     end      
     
 	//Reduce by 90deg for Q2. 
-	else if (sector == 2'b01) begin
-	  x[0] <= -0;
+    else if (sector == 2'b01) begin
+      x[0] <= -0;
       y[0] <= scaling_factor;
       z[0] <= {2'b00,angle[29:0]};      
     end
 	
 	//Increase by 90deg for Q3.
-	else if (sector == 2'b10) begin
+    else if (sector == 2'b10) begin
       x[0] <= 0;
       y[0] <= -scaling_factor;
       z[0] <= {2'b11,angle[29:0]};
@@ -76,10 +76,10 @@ module cordic(clk, angle, sine, cosine);
       begin
 		//sgn decides whether to go clockwise or anti-clockwise.
         wire sgn; 
-		assign sgn = z[i][31]; //sign bit of z.
+	assign sgn = z[i][31]; //sign bit of z.
 		
         //Rotation acheived by shifting and adding.
-		wire signed [15:0] xnew, ynew;
+	wire signed [15:0] xnew, ynew;
         assign xnew = x[i] >>> i; //Sign-preserving right shift.
         assign ynew = y[i] >>> i;
 		
